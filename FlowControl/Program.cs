@@ -16,7 +16,7 @@ namespace FlowControl
                         Environment.Exit(0);
                         break;
                     case "1":
-                        UngdomellerPension();
+                        Discounts();
                         break;
                     case "2":
                         RepeatTenTimes();
@@ -24,10 +24,36 @@ namespace FlowControl
                     case "3":
                         WriteTheThird();
                         break;
+                    case "4":
+                        GroupCalculations();
+                        break;
                     default:
                         Console.WriteLine("Felaktigt val: Försök igen.");
                         break;
                 }
+            }
+        }
+
+        private static void GroupCalculations()
+        {
+            bool success = false;
+            while (!success)
+            {
+                int totalPrice = 0;
+                Console.WriteLine("Hur många är ni?");
+                success = int.TryParse(Console.ReadLine(), out int noOfMembers);
+                if (!success)
+                {
+                    Console.WriteLine("Felaktigt värde: Försök igen.");
+                    continue;
+                }
+                for (int i = 0; i < noOfMembers; i++)
+                {
+                    Console.Write($"[Person {i+1}] ");
+                    totalPrice += Discounts();
+                }
+                Console.WriteLine($"Grupp med {noOfMembers} medlemmar:");
+                Console.WriteLine($"Totalkostnad: {totalPrice} kr");
             }
         }
 
@@ -51,8 +77,7 @@ namespace FlowControl
                     continue;
                 }
             }
-            Console.WriteLine($"Det tredje ordet är {theThird}");
-
+            Console.WriteLine($"Det tredje ordet är \"{theThird}\"");
         }
 
         private static void RepeatTenTimes()
@@ -61,15 +86,15 @@ namespace FlowControl
             string textToPrint = Console.ReadLine();
             for (int i = 0; i < 10; i++)
             {
-                Console.Write($"{i}. {textToPrint}");
+                Console.Write($"{i}. {textToPrint} ");
             }
             Console.WriteLine();
         }
 
-
-        private static void UngdomellerPension()
+        private static int Discounts()
         {
             bool success = false;
+            int price = 120;
             while (!success)
             {
                 Console.WriteLine("Ange ålder:");
@@ -82,20 +107,26 @@ namespace FlowControl
                 if ((age < 5) || (age > 100))
                 {
                     Console.WriteLine("Gratis inträde!");
+                    price = 0;
                 } 
                 else if (age < 20)
                 {
                     Console.WriteLine("Ungdomspris: 80 kr");
+                    price = 80;
                 }
                 else if (age > 64)
                 {
                     Console.WriteLine("Pensionärspris: 90 kr");
+                    price = 90;
+
                 }
                 else
                 {
                     Console.WriteLine("Standardpris: 120 kr");
+                    price = 120;
                 }
             }
+            return price;
 
         }
 
@@ -106,6 +137,7 @@ namespace FlowControl
             Console.WriteLine("1. Ungdom eller pensionär");
             Console.WriteLine("2. Upprepa tio gånger");
             Console.WriteLine("3. Det tredje ordet");
+            Console.WriteLine("4. Gruppkostnadsberäkning");
             Console.WriteLine("Tryck en siffra och sedan Enter:");
         }
     }
