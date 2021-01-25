@@ -1,4 +1,4 @@
-﻿// Övning 2
+﻿// Lexicon NA21 - Övning 2: Flöde vid loopar och strängmanipulation
 using System;
 
 namespace FlowControl
@@ -34,6 +34,17 @@ namespace FlowControl
             }
         }
 
+        private static void DisplayMainMenu()
+        {
+            Console.WriteLine("\n*** Huvudmeny ***");
+            Console.WriteLine("0. Avsluta");
+            Console.WriteLine("1. Ungdom eller pensionär");
+            Console.WriteLine("2. Upprepa tio gånger");
+            Console.WriteLine("3. Det tredje ordet");
+            Console.WriteLine("4. Gruppkostnadsberäkning");
+            Console.WriteLine("Tryck en siffra och sedan Enter:");
+        }
+
         private static void GroupCalculations()
         {
             bool success = false;
@@ -50,6 +61,7 @@ namespace FlowControl
                 for (int i = 0; i < noOfMembers; i++)
                 {
                     Console.Write($"[Person {i+1}] ");
+                    // Get price from every member in group and sum up the total
                     totalPrice += Discounts();
                 }
                 Console.WriteLine($"Grupp med {noOfMembers} medlemmar:");
@@ -65,6 +77,7 @@ namespace FlowControl
             while (!success)
             {
                 string input = Console.ReadLine();
+                // Split input string with space character as delimiter and return an array with all words
                 var words = input.Split(" ");
                 if (words.Length >= 3)
                 {
@@ -127,18 +140,6 @@ namespace FlowControl
                 }
             }
             return price;
-
-        }
-
-        private static void DisplayMainMenu()
-        {
-            Console.WriteLine("\n*** Huvudmeny ***");
-            Console.WriteLine("0. Avsluta");
-            Console.WriteLine("1. Ungdom eller pensionär");
-            Console.WriteLine("2. Upprepa tio gånger");
-            Console.WriteLine("3. Det tredje ordet");
-            Console.WriteLine("4. Gruppkostnadsberäkning");
-            Console.WriteLine("Tryck en siffra och sedan Enter:");
         }
     }
 }
