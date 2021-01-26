@@ -1,11 +1,12 @@
 ﻿// Lexicon NA21 - Övning 2: Flöde vid loopar och strängmanipulation
 using System;
+using System.Text.RegularExpressions;
 
 namespace FlowControl
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             while (true)
             {
@@ -50,7 +51,6 @@ namespace FlowControl
             bool success = false;
             while (!success)
             {
-                int totalPrice = 0;
                 Console.WriteLine("Hur många är ni?");
                 success = int.TryParse(Console.ReadLine(), out int noOfMembers);
                 if (!success)
@@ -58,6 +58,7 @@ namespace FlowControl
                     Console.WriteLine("Felaktigt värde: Försök igen.");
                     continue;
                 }
+                int totalPrice = 0;
                 for (int i = 0; i < noOfMembers; i++)
                 {
                     Console.Write($"[Person {i+1}] ");
@@ -77,12 +78,25 @@ namespace FlowControl
             while (!success)
             {
                 string input = Console.ReadLine();
-                // Split input string with space character as delimiter and return an array with all words
-                var words = input.Split(" ");
+                Console.WriteLine($"Input string: [{input}]");
+
+                // Replace all whitespace characters in input with a single space character
+                // and remove leading and trailing spaces (Trim).
+                string trimmed = Regex.Replace(input, @"\s+", " ").Trim(' ');
+                Console.WriteLine($"Trimmed string: [{trimmed}]");
+                // Split string with space character as delimiter and return an array with all words.
+                var words = trimmed.Split(' ');
                 if (words.Length >= 3)
                 {
                     theThird = words[2];
                     success = true;
+
+                    int i = 1;
+                    foreach (string w in words)
+                    {
+                        Console.WriteLine($"[{i}] {w}");
+                        i++;
+                    }
                 }
                 else
                 {
